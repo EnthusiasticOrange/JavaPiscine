@@ -5,8 +5,6 @@ public class Program {
 
     private static final int MAX_CHART_CHARS = 10;
 
-    private static final int MAX_FREQ = 40;
-
     private static final int PAIR_OF_VALS = 2;
 
     private static final int CHAR = 0;
@@ -41,29 +39,26 @@ public class Program {
     public static void printChart(char[][] printArr) {
         int colSize = 0;
 
+        double weight = printArr[0][FREQ] / ((double) MAX_CHART_CHARS);
+
         for (int i = 0; i < MAX_CHART_CHARS; ++i) {
+            int wCurr = (int) (printArr[i][FREQ] / weight);
+
+            int wNext = (int) (printArr[i + 1][FREQ] / weight);
+
             if (printArr[i][FREQ] == 0) {
                 break;
             }
 
             System.out.printf("%4d", (int) printArr[i][FREQ]);
 
-            if (printArr[i][FREQ] > MAX_FREQ) {
-                printArr[i][FREQ] = MAX_FREQ;
-            }
-
-            while ((printArr[i][FREQ] / 4) > (printArr[i + 1][FREQ] / 4)) {
-                if (printArr[i][FREQ] < 4) {
-                    break;
-                }
-
+            while (wCurr > wNext) {
                 System.out.println();
 
                 for (int j = 0; j <= i; ++j) {
                     System.out.print("   #");
                 }
-
-                printArr[i][FREQ] -= 4;
+                wCurr -= 1;
             }
             colSize += 1;
         }
