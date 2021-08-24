@@ -57,7 +57,7 @@ public class Program {
                 }
 
                 grade = intS.nextInt();
-                if (grade < 1 || grade > 9) {
+                if ((grade < 1) || (grade > 9)) {
                     System.err.println("IllegalArgument");
                     System.exit(-1);
                 }

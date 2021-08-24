@@ -1,9 +1,15 @@
 import java.util.Scanner;
 
 public class Program {
+    private static final int WEEKS_IN_SEPTEMBER = 5;
+
     private static final int MAX_CLASSES = 10;
 
     private static final int MAX_STUDENTS = 10;
+
+    private static final int MAX_DAY = 30;
+
+    private static final int MAX_HOUR = 6;
 
     private static final int PAIR_OF_VALS = 2;
 
@@ -12,8 +18,6 @@ public class Program {
     private static final int DAY = 1;
 
     private static final int ATT = 1;
-
-    private static final int MAX_DAY = 30;
 
     private static final char HERE = 1;
 
@@ -102,21 +106,6 @@ public class Program {
         return classSize;
     }
 
-    public static int countDays(char[][] arr, int size) {
-        int dayCount = 0;
-
-        for (int day = 1; day <= MAX_DAY; ++day) {
-            for (int i = 0; i < size; ++i) {
-                int weekdayNum = (int) arr[i][DAY];
-                if ((day % 7) == weekdayNum) {
-                    dayCount += 1;
-                }
-            }
-        }
-
-        return dayCount;
-    }
-
     public static int getNamePosition(String name, String[] arr, int size) {
         for (int i = 0; i < size; ++i) {
             if (name.equals(arr[i])) {
@@ -130,7 +119,8 @@ public class Program {
         for (int i = 0; i < classSize; ++i) {
             for (int j = 1; j < classSize - i; ++j) {
                 if ((arr[j - 1][DAY] > arr[j][DAY])
-                        || (arr[j - 1][DAY] == arr[j][DAY]) && (arr[j - 1][TIME] > arr[j][TIME])) {
+                        || (arr[j - 1][DAY] == arr[j][DAY])
+                        && (arr[j - 1][TIME] > arr[j][TIME])) {
                     char[] tmp = arr[j - 1];
 
                     arr[j - 1] = arr[j];
@@ -147,17 +137,17 @@ public class Program {
 
         char[][] classArr = new char[MAX_CLASSES][PAIR_OF_VALS];
 
-        char[][][] attendanceArr = new char[MAX_STUDENTS][MAX_DAY][PAIR_OF_VALS];
+        char[][][] attendanceArr = new char[MAX_STUDENTS][MAX_DAY][MAX_HOUR];
 
         int nameCount = readNames(s, nameArr);
 
-        int classSize = readClasses(s, classArr);
+        int classCount = readClasses(s, classArr);
 
-        int dayCount = countDays(classArr, classSize);
+        int maxAttendance = nameCount * classCount * WEEKS_IN_SEPTEMBER;
 
-        bubbleSortClasses(classArr, classSize);
+        bubbleSortClasses(classArr, classCount);
 
-        for (int i = 0; i < dayCount; ++i) {
+        for (int i = 0; i < maxAttendance; ++i) {
             String name = s.next();
 
             char time = 0;
@@ -165,8 +155,6 @@ public class Program {
             char date = 0;
 
             String attendance = "";
-
-            char isPresent = 0;
 
             int namePos = -1;
 
@@ -178,15 +166,18 @@ public class Program {
             date = (char) s.nextInt();
             attendance = s.next();
 
-            isPresent = attendance.equals("HERE") ? HERE : NOT_HERE;
             namePos = getNamePosition(name, nameArr, nameCount);
-            attendanceArr[namePos][date - 1][TIME] = time;
-            attendanceArr[namePos][date - 1][ATT] = isPresent;
+            if (attendance.equals("HERE")) {
+                attendanceArr[namePos][date - 1][time] = HERE;
+            } else {
+                attendanceArr[namePos][date - 1][time] = NOT_HERE;
+            }
         }
+
 
         System.out.printf("%10s", "");
         for (int day = 1; day <= MAX_DAY; ++day) {
-            for (int i = 0; i < classSize; ++i) {
+            for (int i = 0; i < classCount; ++i) {
                 char time = classArr[i][TIME];
 
                 String weekday = charToWeekday(classArr[i][DAY]);
@@ -204,7 +195,7 @@ public class Program {
         for (int i = 0; i < nameCount; ++i) {
             System.out.printf("%10s", nameArr[i]);
             for (int day = 1; day <= MAX_DAY; ++day) {
-                for (int j = 0; j < classSize; ++j) {
+                for (int j = 0; j < classCount; ++j) {
                     int time = (int) (classArr[j][TIME] - '0');
 
                     String weekday = charToWeekday(classArr[j][DAY]);
@@ -212,10 +203,12 @@ public class Program {
                     int weekdayNum = (int) classArr[j][DAY];
 
                     if ((day % 7) == weekdayNum) {
-                        if (attendanceArr[i][day - 1][ATT] != 0 && attendanceArr[i][day - 1][TIME] == time) {
-                            int isPresent = (attendanceArr[i][day - 1][ATT] == HERE ? 1 : -1);
-
-                            System.out.printf("%10d|", isPresent);
+                        if (attendanceArr[i][day - 1][time] != 0) {
+                            if (attendanceArr[i][day - 1][time] == HERE) {
+                                System.out.printf("%10d|", 1);
+                            } else {
+                                System.out.printf("%10d|", -1);
+                            }
                         } else {
                             System.out.printf("%10s|", "");
                         }

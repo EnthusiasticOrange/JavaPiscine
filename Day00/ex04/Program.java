@@ -5,6 +5,8 @@ public class Program {
 
     private static final int MAX_CHART_CHARS = 10;
 
+    private static final int MAX_FREQ = 40;
+
     private static final int PAIR_OF_VALS = 2;
 
     private static final int CHAR = 0;
@@ -46,8 +48,8 @@ public class Program {
 
             System.out.printf("%4d", (int) printArr[i][FREQ]);
 
-            if (printArr[i][FREQ] > 40) {
-                printArr[i][FREQ] = 40;
+            if (printArr[i][FREQ] > MAX_FREQ) {
+                printArr[i][FREQ] = MAX_FREQ;
             }
 
             while ((printArr[i][FREQ] / 4) > (printArr[i + 1][FREQ] / 4)) {
@@ -69,7 +71,7 @@ public class Program {
         System.out.println();
 
         for (int j = 0; j < colSize; ++j) {
-            if (printArr[j][CHAR] < 33 || printArr[j][CHAR] == 127) {
+            if ((printArr[j][CHAR] < 33) || (printArr[j][CHAR] == 127)) {
                 System.out.printf("%4s", someAsciiToStr(printArr[j][CHAR]));
             } else {
                 System.out.printf("%4c", printArr[j][CHAR]);

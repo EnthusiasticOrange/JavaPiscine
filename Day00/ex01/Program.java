@@ -15,8 +15,8 @@ public class Program {
             System.exit(-1);
         }
 
-        for (int i = 2; i * i <= num; ++i) {
-            if (num % i == 0) {
+        for (int i = 2; (i * i) <= num; ++i) {
+            if ((num % i) == 0) {
                 isPrime = false;
                 break;
             }
