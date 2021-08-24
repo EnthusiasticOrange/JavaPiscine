@@ -36,6 +36,18 @@ public class Program {
         }
     }
 
+    public static void sortChart(char[][] printArr) {
+        for (int i = 0; i < MAX_CHART_CHARS - 1; ++i) {
+            if ((printArr[i][FREQ] == printArr[i + 1][FREQ])
+                    && (printArr[i][CHAR] > printArr[i + 1][CHAR])) {
+                char tmpCh = printArr[i][CHAR];
+
+                printArr[i][CHAR] = printArr[i + 1][CHAR];
+                printArr[i + 1][CHAR] = tmpCh;
+            }
+        }
+    }
+
     public static void printChart(char[][] printArr) {
         int colSize = 0;
 
@@ -115,6 +127,7 @@ public class Program {
             }
         }
 
+        sortChart(printArr);
         printChart(printArr);
     }
 }
