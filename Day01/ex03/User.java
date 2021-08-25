@@ -16,17 +16,9 @@ class User {
     }
 
     public void setBalance(int newBalance) {
-        if (newBalance > 0) {
+        if (newBalance >= 0) {
             this.balance = newBalance;
         }
-    }
-
-    public void addTransaction(Transaction t) {
-        this.tList.add(t);
-    }
-
-    public void removeTransaction(String id) {
-        this.tList.remove(id);
     }
 
     public Transaction[] getTransactionArray() {
@@ -43,5 +35,13 @@ class User {
 
     public int getBalance() {
         return this.balance;
+    }
+
+    public void addTransaction(Transaction t) {
+        this.tList.add(t);
+    }
+
+    public Transaction removeTransaction(String id) {
+        return this.tList.remove(id);
     }
 }

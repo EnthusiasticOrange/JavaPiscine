@@ -1,4 +1,7 @@
 class TransactionNotFoundException extends RuntimeException {
+    public TransactionNotFoundException(String msg) {
+        super(msg);
+    }
 }
 
 class TransactionsLinkedList implements TransactionsList {
@@ -51,7 +54,7 @@ class TransactionsLinkedList implements TransactionsList {
             }
             tmp = tmp.next;
         }
-        throw new TransactionNotFoundException();
+        throw new TransactionNotFoundException("Transaction not found");
     }
 
     public Transaction[] toArray() {

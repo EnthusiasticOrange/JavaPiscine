@@ -93,7 +93,7 @@ class Menu {
                 System.exit(0);
             }
             
-            split = input.split("\s+");
+            split = input.split("\\s+");
             if ((split.length == 0) || (split[0].length() == 0)) {
                 System.out.print("Error: Name not specified. ");
                 continue;
@@ -176,7 +176,7 @@ class Menu {
                 return;
             }
 
-            split = input.split("\s+");
+            split = input.split("\\s+");
             if ((split.length == 0) || (split[0].length() == 0)) {
                 System.out.print("Error: Sender ID not specified. ");
                 continue;
@@ -285,7 +285,7 @@ class Menu {
                 return;
             }
 
-            split = input.split("\s+");
+            split = input.split("\\s+");
             if ((split.length == 0) || (split[0].length() == 0)) {
                 System.out.print("Error: User ID not specified. ");
                 continue;
@@ -318,7 +318,7 @@ class Menu {
             break;
         }
         User u = tr.getRecipient();
-        System.out.printf("Transfer6 to %s(id = %d) %d removed\n",
+        System.out.printf("Transfer to %s(id = %d) %d removed\n",
                 u.getName(), u.getId(), -tr.getAmount());
     }
 
@@ -335,8 +335,8 @@ class Menu {
                 u = recipient;
             }
 
-            System.out.printf("%s(id = %d) has an unacknowledged transfer id = %s\n",
-                    u.getName(), u.getId(), arr[i].getId());
+            System.out.printf("%s(id = %d) has an unacknowledged transfer id = %s for %d\n",
+                    u.getName(), u.getId(), arr[i].getId(), arr[i].getAmount());
         }
     }
 }

@@ -13,7 +13,7 @@ public class Program {
         System.out.printf("\tRecipient: %s\n", t.getRecipient().getName());
         System.out.printf("\tSender:    %s\n", t.getSender().getName());
         System.out.printf("\tCategory:  %s\n", t.getCategory().name());
-        System.out.printf("\tAmiount:   %d\n", t.getAmount());
+        System.out.printf("\tAmount:    %d\n", t.getAmount());
         System.out.println();
     }
 
@@ -23,7 +23,7 @@ public class Program {
         User mike = new User("Mike", 300);
 
         Transaction t1 = new Transaction(mike, bob,
-                Transaction.Category.Debits, 500);
+                Transaction.Category.Debit, 500);
 
         printUser(bob);
         printUser(mike);
@@ -40,6 +40,19 @@ public class Program {
         System.out.println("===== Changing (Mega)Bob's balance to -3 =====");
         bob.setBalance(-3);
         printUser(bob);
+
+        System.out.println("===== Creating transaction with wrong amount =====");
+        Transaction t2 = new Transaction(mike, bob,
+                Transaction.Category.Credit, 500);
+        printTransaction(t2);
+
+        System.out.println("===== Changing transaction to have valid amount =====");
+        t2.setAmount(-1000);
+        printTransaction(t2);
+
+        System.out.println("===== Changing transaction to have invalid amount =====");
+        t2.setAmount(15);
+        printTransaction(t2);
 
     }
 }

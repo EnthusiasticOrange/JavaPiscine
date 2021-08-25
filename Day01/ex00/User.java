@@ -1,5 +1,5 @@
 class User {
-    private static int nextId = 0;
+    private static int nextId = 1;
 
     private final int id;
     private String name;
@@ -16,7 +16,7 @@ class User {
     }
 
     public void setBalance(int newBalance) {
-        if (newBalance > 0) {
+        if (newBalance >= 0) {
             this.balance = newBalance;
         }
     }

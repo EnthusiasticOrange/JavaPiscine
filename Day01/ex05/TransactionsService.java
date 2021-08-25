@@ -14,16 +14,16 @@ class TransactionsService {
     public int addUser(String name, int balance) {
         User u = new User(name, balance);
         usersList.add(u);
-        
-        return u.getId();
-    }
 
-    public int getUserBalance(int id) {
-        return this.usersList.getById(id).getBalance();
+        return u.getId();
     }
 
     public String getUserName(int id) {
         return this.usersList.getById(id).getName();
+    }
+
+    public int getUserBalance(int id) {
+        return this.usersList.getById(id).getBalance();
     }
 
     public void transfer(int senderId, int recipientId, int amount) {
@@ -39,13 +39,13 @@ class TransactionsService {
             throw new IllegalTransactionException(msg);
         }
 
-        Transaction.Category cat = (amount < 0) ? Transaction.Category.Credits
-                                                : Transaction.Category.Debits;
-        Transaction tr1 = new Transaction(sender, recipient, cat, amount);
+        Transaction.Category cat = (amount < 0) ? Transaction.Category.Debit
+                : Transaction.Category.Credit;
+        Transaction tr1 = new Transaction(sender, recipient, cat, -amount);
         Transaction tr2 = tr1.createPairedTransaction();
 
-        recipient.addTransaction(tr1);
-        sender.addTransaction(tr2);
+        sender.addTransaction(tr1);
+        recipient.addTransaction(tr2);
 
         sender.setBalance(sender.getBalance() - amount);
         recipient.setBalance(recipient.getBalance() + amount);

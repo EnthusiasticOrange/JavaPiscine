@@ -1,4 +1,10 @@
 class UserNotFoundException extends RuntimeException {
+    public UserNotFoundException() {
+    }
+
+    public UserNotFoundException(String msg) {
+        super(msg);
+    }
 }
 
 class UsersArrayList implements UsersList {
@@ -27,7 +33,7 @@ class UsersArrayList implements UsersList {
                 return this.array[i];
             }
         }
-        throw new UserNotFoundException();
+        throw new UserNotFoundException("User with ID = " + id + " not found");
     }
 
     public User getByIndex(int index) {

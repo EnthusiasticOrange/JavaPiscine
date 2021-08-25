@@ -1,25 +1,25 @@
 class UserNotFoundException extends RuntimeException {
+    public UserNotFoundException() {
+    }
+
     public UserNotFoundException(String msg) {
         super(msg);
     }
 }
 
 class UsersArrayList implements UsersList {
-    private int capacity;
     private int size;
     User[] array;
 
     public UsersArrayList() {
-        this.capacity = 10;
         this.size = 0;
-        this.array = new User[this.capacity];
+        this.array = new User[10];
     }
 
     public void add(User user) {
-        if (this.capacity == this.size) {
+        if (this.array.length == this.size) {
             User[] tmp = this.array;
-            this.capacity += this.capacity / 2;
-            this.array = new User[this.capacity];
+            this.array = new User[this.array.length + this.array.length / 2];
             for (int i = 0; i < this.size; ++i) {
                 this.array[i] = tmp[i];
             }
@@ -45,6 +45,6 @@ class UsersArrayList implements UsersList {
     }
 
     public int getCapacity() {
-        return this.capacity;
+        return this.array.length;
     }
 }

@@ -1,4 +1,7 @@
 class TransactionNotFoundException extends RuntimeException {
+    public TransactionNotFoundException(String msg) {
+        super(msg);
+    }
 }
 
 class TransactionsLinkedList implements TransactionsList {
@@ -39,7 +42,7 @@ class TransactionsLinkedList implements TransactionsList {
         this.size += 1;
     }
 
-    public void remove(String id) {
+    public Transaction remove(String id) {
         NodeBase tmp = this.root.next;
         while (tmp != this.root) {
             Node node = (Node) tmp;
@@ -47,11 +50,11 @@ class TransactionsLinkedList implements TransactionsList {
                 tmp.prev.next = tmp.next;
                 tmp.next.prev = tmp.prev;
                 this.size -= 1;
-                return;
+                return node.t;
             }
             tmp = tmp.next;
         }
-        throw new TransactionNotFoundException();
+        throw new TransactionNotFoundException("Transaction not found");
     }
 
     public Transaction[] toArray() {

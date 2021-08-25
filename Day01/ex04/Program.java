@@ -24,45 +24,45 @@ public class Program {
         service.addUser("Mike", 100);
 
         System.out.println("===== Initial balance =====");
-        System.out.printf("Bob's balance: %d\n", service.getUserBalance(0));
-        System.out.printf("Mike's balance: %d\n", service.getUserBalance(1));
+        System.out.printf("Bob's balance: %d\n", service.getUserBalance(1));
+        System.out.printf("Mike's balance: %d\n", service.getUserBalance(2));
         System.out.println();
 
         System.out.println("===== Transfering 100 from Bob to Mike =====");
-        service.transfer(1, 0, 100);
+        service.transfer(1, 2, 100);
         System.out.println();
 
         System.out.println("===== Printing all Bob's transactions =====");
-        Transaction[] trArr1 = service.getUserTransactionArray(0);
+        Transaction[] trArr1 = service.getUserTransactionArray(1);
         for (int i = 0; i < trArr1.length; ++i) {
             printTransaction(trArr1[i]);
         }
 
         System.out.println("===== New balance =====");
-        System.out.printf("Bob's balance: %d\n", service.getUserBalance(0));
-        System.out.printf("Mike's balance: %d\n", service.getUserBalance(1));
+        System.out.printf("Bob's balance: %d\n", service.getUserBalance(1));
+        System.out.printf("Mike's balance: %d\n", service.getUserBalance(2));
         System.out.println();
 
         System.out.println("===== Transfering 200 from Mike to Bob =====");
-        service.transfer(0, 1, 200);
+        service.transfer(2, 1, 200);
         System.out.println();
 
         System.out.println("===== Printing all Mike's transactions =====");
-        Transaction[] trArr2 = service.getUserTransactionArray(1);
+        Transaction[] trArr2 = service.getUserTransactionArray(2);
         for (int i = 0; i < trArr2.length; ++i) {
             printTransaction(trArr2[i]);
         }
 
         System.out.println("===== New balance =====");
-        System.out.printf("Bob's balance: %d\n", service.getUserBalance(0));
-        System.out.printf("Mike's balance: %d\n", service.getUserBalance(1));
+        System.out.printf("Bob's balance: %d\n", service.getUserBalance(1));
+        System.out.printf("Mike's balance: %d\n", service.getUserBalance(2));
         System.out.println();
 
         System.out.println("===== Transfering 200 from Mike to Bob =====");
         try {
-            service.transfer(0, 1, 200);
+            service.transfer(2, 1, 200);
         } catch (IllegalTransactionException e) {
-            System.out.println("Caught IllegalTransactionException");
+            System.out.printf("Caught IllegalTransactionException: %s\n", e.getMessage());
         }
 
         System.out.println();
@@ -73,10 +73,11 @@ public class Program {
         System.out.println();
 
         System.out.println("===== Removing all Bob's transactions =====");
-        Transaction[] trArr3 = service.getUserTransactionArray(0);
+        Transaction[] trArr3 = service.getUserTransactionArray(1);
         for (int i = 0; i < trArr3.length; ++i) {
-            service.removeTransaction(trArr3[i].getId(), 0);
+            service.removeTransaction(trArr3[i].getId(), 1);
         }
+        System.out.println();
 
         System.out.println("===== Getting array of invalid transactions =====");
         Transaction[] invArr2 = service.checkTransactionValidity();

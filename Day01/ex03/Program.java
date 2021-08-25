@@ -27,14 +27,14 @@ public class Program {
         printUser(bob);
         printUser(mike);
 
-        System.out.println("===== Adding Debits transaction Bob => Mike =====");
-        Transaction t1 = new Transaction(mike, bob, Transaction.Category.Debits, 200);
+        System.out.println("===== Adding Debit transaction Bob => Mike =====");
+        Transaction t1 = new Transaction(bob, mike, Transaction.Category.Debit, 200);
         printTransaction(t1);
         bob.addTransaction(t1);
         mike.addTransaction(t1);
 
-        System.out.println("===== Adding Credits transaction Tom => Mike =====");
-        Transaction t2 = new Transaction(mike, tom, Transaction.Category.Credits, -800);
+        System.out.println("===== Adding Credit transaction Tom => Mike =====");
+        Transaction t2 = new Transaction(tom, mike, Transaction.Category.Credit, -800);
         printTransaction(t2);
         tom.addTransaction(t2);
         mike.addTransaction(t2);
@@ -74,7 +74,7 @@ public class Program {
         try {
             mike.removeTransaction(id);
         } catch (TransactionNotFoundException e) {
-            System.out.println("Caught TransactionNotFoundException");
+            System.out.printf("Caught TransactionNotFoundException: %s\n", e.getMessage());
         }
 
         System.out.println();

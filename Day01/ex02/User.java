@@ -14,7 +14,7 @@ class User {
     }
 
     public void setBalance(int newBalance) {
-        if (newBalance > 0) {
+        if (newBalance >= 0) {
             this.balance = newBalance;
         }
     }
