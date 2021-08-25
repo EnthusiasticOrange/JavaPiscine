@@ -18,17 +18,17 @@ public class Program {
         printUser(mike);
 
         System.out.println("===== Adding users to UsersArrayList (Bob, Mike) =====");
-        arrayList.addUser(bob);
-        arrayList.addUser(mike);
+        arrayList.add(bob);
+        arrayList.add(mike);
         System.out.printf("UsersArrayList size() = %d\n", arrayList.getSize());
         System.out.printf("UsersArrayList capacity() = %d\n", arrayList.getCapacity());
         System.out.println();
 
         System.out.println("===== Print Mike by index (= 1) =====");
-        printUser(arrayList.getUserByIndex(1));
+        printUser(arrayList.getByIndex(1));
 
         System.out.println("===== Print Bob by id (= 0) =====");
-        printUser(arrayList.getUserById(0));
+        printUser(arrayList.getById(0));
 
         System.out.println("===== Skip 3 Users =====");
         for (int i = 0; i < 3; ++i) {
@@ -37,20 +37,20 @@ public class Program {
 
         System.out.println("===== Adding more users to UsersArrayList (+24) =====");
         for (int i = 0; i < 24; ++i) {
-            arrayList.addUser(new User("Name " + i, i * 1000));
+            arrayList.add(new User("Name " + i, i * 1000));
         }
         System.out.printf("UsersArrayList size() = %d\n", arrayList.getSize());
         System.out.printf("UsersArrayList capacity() = %d (10 + 5 + 7 + 11)\n", arrayList.getCapacity());
 
         System.out.println("===== Print User by index = 13 (ID = 13 + 3) =====");
-        printUser(arrayList.getUserByIndex(13));
+        printUser(arrayList.getByIndex(13));
 
         System.out.println("===== Print User by id = 28 (2 + 3 + 24 - 1) =====");
-        printUser(arrayList.getUserById(28));
+        printUser(arrayList.getById(28));
 
         System.out.println("===== Print User by id = 29 (2 + 3 + 24) =====");
         try {
-            printUser(arrayList.getUserById(29));
+            printUser(arrayList.getById(29));
         } catch (UserNotFoundException e) {
             System.out.println("Caught UserNotFoundException");
             System.out.println();

@@ -9,8 +9,8 @@ class Transaction {
     private final String id;
     private final User recipient;
     private final User sender;
-    private final Category category;
-    private final int amount;
+    private Category category;
+    private int amount;
 
     public Transaction(User to, User from, Category category, int amount) {
         this.id = UUID.randomUUID().toString();

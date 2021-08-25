@@ -41,8 +41,8 @@ class User {
         this.tList.add(t);
     }
 
-    public void removeTransaction(String id) {
-        this.tList.remove(id);
+    public Transaction removeTransaction(String id) {
+        return this.tList.remove(id);
     }
 
     public boolean containsPairedTransaction(String id) {

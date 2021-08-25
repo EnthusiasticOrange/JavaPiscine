@@ -1,4 +1,7 @@
 class IllegalTransactionException extends RuntimeException {
+    public IllegalTransactionException(String msg) {
+        super(msg);
+    }
 }
 
 class TransactionsService {
@@ -8,42 +11,53 @@ class TransactionsService {
         this.usersList = new UsersArrayList();
     }
 
-    public void addUser(String name, int balance) {
-        usersList.add(new User(name, balance));
+    public int addUser(String name, int balance) {
+        User u = new User(name, balance);
+        usersList.add(u);
+        
+        return u.getId();
     }
 
     public int getUserBalance(int id) {
         return this.usersList.getById(id).getBalance();
     }
 
-    public void transfer(int recipientId, int senderId, int amount) {
-        User to = this.usersList.getById(recipientId);
-        User from = this.usersList.getById(senderId);
+    public String getUserName(int id) {
+        return this.usersList.getById(id).getName();
+    }
 
-        if ((amount > 0 && from.getBalance() < amount)
-                || (amount < 0 && to.getBalance() < -amount)) {
-            throw new IllegalTransactionException();
+    public void transfer(int senderId, int recipientId, int amount) {
+        User sender = this.usersList.getById(senderId);
+        User recipient = this.usersList.getById(recipientId);
+
+        if (amount > 0 && sender.getBalance() < amount) {
+            String msg = "User with ID = " + senderId + " has insufficient funds";
+            throw new IllegalTransactionException(msg);
+        }
+        if (amount < 0 && recipient.getBalance() < -amount) {
+            String msg = "User with ID = " + recipientId + " has insufficient funds";
+            throw new IllegalTransactionException(msg);
         }
 
         Transaction.Category cat = (amount < 0) ? Transaction.Category.Credits
                                                 : Transaction.Category.Debits;
-        Transaction tr1 = new Transaction(from, to, cat, amount);
+        Transaction tr1 = new Transaction(sender, recipient, cat, amount);
         Transaction tr2 = tr1.createPairedTransaction();
 
-        to.addTransaction(tr1);
-        from.addTransaction(tr2);
+        recipient.addTransaction(tr1);
+        sender.addTransaction(tr2);
 
-        from.setBalance(from.getBalance() - amount);
-        to.setBalance(to.getBalance() + amount);
+        sender.setBalance(sender.getBalance() - amount);
+        recipient.setBalance(recipient.getBalance() + amount);
     }
 
     public Transaction[] getUserTransactionArray(int id) {
         return this.usersList.getById(id).getTransactionArray();
     }
 
-    public void removeTransaction(String id, int userId) {
+    public Transaction removeTransaction(String id, int userId) {
         User u = this.usersList.getById(userId);
-        u.removeTransaction(id);
+        return u.removeTransaction(id);
     }
 
     public Transaction[] checkTransactionValidity() {
