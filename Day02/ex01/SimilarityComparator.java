@@ -78,6 +78,9 @@ class SimilarityComparator {
                         .mapToInt(v -> v * v)
                         .sum());
 
+        if (dictionary.size() == 0) {
+            return 1;
+        }
         if (numenator == 0) {
             return 0;
         }
