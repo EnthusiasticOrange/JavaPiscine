@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         SignatureChecker checker = new SignatureChecker();
-
         if (!checker.init()) {
             return;
         }

@@ -7,8 +7,8 @@ class SignatureChecker {
     private FileOutputStream resultFile;
 
     public SignatureChecker() {
-        signatureMap = new HashMap<>();
-        resultFile = null;
+        this.signatureMap = new HashMap<>();
+        this.resultFile = null;
     }
 
     public boolean init() {
@@ -17,7 +17,7 @@ class SignatureChecker {
         }
 
         try {
-            resultFile = new FileOutputStream("result.txt");
+            this.resultFile = new FileOutputStream("result.txt");
         } catch (IOException e) {
             System.err.println(e.getMessage());
             return false;
@@ -70,18 +70,18 @@ class SignatureChecker {
         for (int i = 0; i < byteSplit.length; ++i) {
             sig[i] = Integer.parseInt(byteSplit[i], 16);
         }
-        signatureMap.put(split[0], sig);
+        this.signatureMap.put(split[0], sig);
 
         return true;
     }
 
     private void writeResult(String ext) {
-        if (resultFile == null) {
+        if (this.resultFile == null) {
             return;
         }
         try {
-            resultFile.write(ext.getBytes());
-            resultFile.write('\n');
+            this.resultFile.write(ext.getBytes());
+            this.resultFile.write('\n');
         } catch (IOException e) {}
     }
 
@@ -92,13 +92,12 @@ class SignatureChecker {
 
         try (FileInputStream checkFile = new FileInputStream(path)) {
             int c;
-            int p = 0;
             while ((c = checkFile.read()) != -1) {
                 byteLst.add(c);
 
                 int[] byteArr = byteLst.stream().mapToInt(i -> i).toArray();
 
-                curSearchLst = signatureMap.entrySet().stream()
+                curSearchLst = this.signatureMap.entrySet().stream()
                                .filter(item -> partialSignatureEquals(item.getValue(), byteArr))
                                .collect(Collectors.toList());
                 if (curSearchLst.size() == 0) {
@@ -119,7 +118,7 @@ class SignatureChecker {
 
         if (prevSearchLst.size() > 1) {
             int[] byteArr = byteLst.stream().mapToInt(i -> i).toArray();
-            prevSearchLst = signatureMap.entrySet().stream()
+            prevSearchLst = this.signatureMap.entrySet().stream()
                             .filter(item -> Arrays.equals(item.getValue(), byteArr))
                             .collect(Collectors.toList());
             if (prevSearchLst.size() == 0) {
