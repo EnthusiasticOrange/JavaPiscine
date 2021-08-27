@@ -1,22 +1,19 @@
+import java.util.*;
+import java.io.*;
 import java.util.concurrent.*;
 
 class ThreadPool {
-    class DownloadInfo {
-        public int number;
-        public String url;
-
-        public DownloadInfo(int num, String url) {
-            this.number = num;
-            this.url = url;
-        }
-    }
-
-    private Queue<DownloadInfo> queue;
-    private DownloadThread[] workers;
+    private List<DownloadThread> workerList;
+    private BlockingQueue<DownloadInfo> queue;
 
     public ThreadPool(int threadsCount) {
-        this.workers = new DownloadThread[threadsCount];
-        this.queue = new BlockingQueue<>();
+        this.workerList = new ArrayList<>();
+        this.queue = new LinkedBlockingQueue<>();
+
+        for (int i = 0; i < threadsCount; ++i) {
+            DownloadThread t = new DownloadThread(this.queue);
+            this.workerList.add(t);
+        }
     }
 
     public boolean readFile(String filename) {
@@ -47,6 +44,16 @@ class ThreadPool {
     }
 
     public void exec() {
-        while ()
+        for (DownloadThread t : this.workerList) {
+            t.start();
+        }
+
+        for (DownloadThread t : this.workerList) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                System.out.printf("%s has been interrupted\n", t.getName());
+            }
+        }
     }
 }
