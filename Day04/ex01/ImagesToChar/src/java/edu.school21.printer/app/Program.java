@@ -12,7 +12,6 @@ public class Program {
 
         char whiteChar = 0;
         char blackChar = 0;
-        String filename = "src/resources/image.bmp";
 
         for (String arg : args) {
             if (arg.startsWith("--white=")) {
@@ -33,7 +32,7 @@ public class Program {
             }
         }
 
-        if ((whiteChar == 0) || (blackChar == 0) || (filename == null)) {
+        if ((whiteChar == 0) || (blackChar == 0)) {
             System.out.println("Usage: Program --white=CHAR --black=CHAR image.bmp");
             return;
         }
@@ -42,12 +41,12 @@ public class Program {
 
         char[][] arr = null;
         try {
-            arr = ImageToChar.BmpToCharArray(filename, whiteChar, blackChar);
+            arr = ImageToChar.BmpToCharArray(whiteChar, blackChar);
         } catch (IOException e) {
-            System.err.printf("Failed to read '%s': %s\n", filename, e.getMessage());
+            System.err.printf("Failed to read 'image.bmp': %s\n", e.getMessage());
             return;
         } catch (ConvertException e) {
-            System.err.printf("Failed to convert '%s' to array: %s\n", filename, e.getMessage());
+            System.err.printf("Failed to convert 'image.bmp' to array: %s\n", e.getMessage());
             return;
         }
 

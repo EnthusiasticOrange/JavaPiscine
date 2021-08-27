@@ -7,9 +7,9 @@ import javax.imageio.ImageIO;
 import java.awt.Color;
 
 public class ImageToChar {
-    public static char[][] BmpToCharArray(String filename, char whiteChar, char blackChar)
+    public static char[][] BmpToCharArray(char whiteChar, char blackChar)
             throws IOException, ConvertException {
-        BufferedImage image = ImageIO.read(new File(filename));
+        BufferedImage image = ImageIO.read(getClass().getResourceAsStream("image.bmp"););
 
         char[][] arr = new char[image.getWidth()][image.getHeight()];
 
