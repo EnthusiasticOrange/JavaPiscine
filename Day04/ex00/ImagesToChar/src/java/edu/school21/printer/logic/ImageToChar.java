@@ -1,16 +1,15 @@
+package edu.school21.printer.logic;
+
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.awt.Color;
 
-class ConvertException extends RuntimeException {
-    public ConvertException(String msg) {
-        super(msg);
+public class ImageToChar {
+    private ImageToChar() {
     }
-}
 
-class ImageToChar {
     public static char[][] BmpToCharArray(String filename, char whiteChar, char blackChar)
             throws IOException, ConvertException {
         BufferedImage image = ImageIO.read(new File(filename));

@@ -1,5 +1,6 @@
 package edu.school21.printer.logic;
 
+import edu.school21.printer.app.*;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
@@ -7,9 +8,12 @@ import javax.imageio.ImageIO;
 import java.awt.Color;
 
 public class ImageToChar {
+    private ImageToChar() {
+    }
+
     public static char[][] BmpToCharArray(char whiteChar, char blackChar)
             throws IOException, ConvertException {
-        BufferedImage image = ImageIO.read(getClass().getResourceAsStream("image.bmp"););
+        BufferedImage image = ImageIO.read(ImageToChar.class.getResourceAsStream("/resources/image.bmp"));
 
         char[][] arr = new char[image.getWidth()][image.getHeight()];
 
