@@ -1,0 +1,4 @@
+mvn archetype:generate -DgroupId=edu.school21.chaseLogic -DartifactId=ChaseLogic
+mvn compile
+mvn package
+mvn install
