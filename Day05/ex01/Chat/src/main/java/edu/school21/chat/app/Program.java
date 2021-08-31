@@ -15,7 +15,7 @@ public class Program {
         String input = s.nextLine();
         Long id;
         try {
-            id = Long.parseLong(input);
+            id = Long.parseLong(input.trim());
         } catch (Exception e) {
             System.err.println("Failed to parse input id");
             return;
