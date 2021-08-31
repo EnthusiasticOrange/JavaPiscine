@@ -4,13 +4,13 @@ SET search_path TO mjuli_chat;
 
 CREATE TABLE IF NOT EXISTS users (
   id BIGSERIAL PRIMARY KEY UNIQUE,
-  login VARCHAR(80) NOT NULL UNIQUE,
-  password VARCHAR(80) NOT NULL
+  login VARCHAR(80),
+  password VARCHAR(80)
 );
 
 CREATE TABLE IF NOT EXISTS chatrooms (
     id BIGSERIAL PRIMARY KEY UNIQUE,
-    name VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255),
     owner_id BIGINT REFERENCES users(id)
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS messages (
     author_id BIGINT REFERENCES users(id),
     room_id BIGINT REFERENCES chatrooms(id),
     text TEXT,
-    time TIMESTAMP NOT NULL DEFAULT LOCALTIMESTAMP(0)
+    time TIMESTAMP DEFAULT LOCALTIMESTAMP(0)
 );
 
 CREATE TABLE IF NOT EXISTS users_chatrooms (

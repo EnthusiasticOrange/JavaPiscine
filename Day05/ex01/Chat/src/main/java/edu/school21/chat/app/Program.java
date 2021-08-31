@@ -11,6 +11,7 @@ public class Program {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
+        System.out.println("Enter a message ID");
         String input = s.nextLine();
         Long id;
         try {
@@ -26,7 +27,12 @@ public class Program {
         MessagesRepositoryJdbcImpl msgRepo = new MessagesRepositoryJdbcImpl(source);
         Optional<Message> msg = msgRepo.findById(id);
         if (msg.isPresent()) {
-            System.out.printf("Message : %s\n", msg.get().toString());
+            String msgStr = msg.get().toString().replaceAll("=", " = ")
+                                                .replaceAll(",", ",\n\t")
+                                                .replaceAll("\\{", "{\n\t")
+                                                .replaceAll("}", "\n}")
+                                                .replaceAll("\n},", "\n\t},");
+            System.out.printf("Message : %s\n", msgStr);
         } else {
             System.out.printf("Message with id=%d was not found\n", id);
         }

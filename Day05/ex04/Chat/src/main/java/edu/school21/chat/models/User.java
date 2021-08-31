@@ -97,19 +97,6 @@ public class User {
 
     @Override
     public String toString() {
-        StringBuilder createdBuilder = new StringBuilder();
-        if (createdRooms != null) {
-            createdBuilder.append('[');
-            for (Chatroom c : createdRooms) {
-                createdBuilder.append(String.format("%s (%d), ", c.getName(), c.getId()));
-            }
-            if (!createdRooms.isEmpty()) {
-                createdBuilder.deleteCharAt(createdBuilder.length() - 1)
-                                .deleteCharAt(createdBuilder.length() - 1);
-            }
-            createdBuilder.append(']');
-        }
-
         return  "{" +
                 "id=" + id + "," +
                 "login=\"" + login + '\"' + "," +

@@ -56,12 +56,14 @@
         <executions>
           <execution>
             <id>unpack-dependencies</id>
-            <phase>prepare-package</phase>
+            <phase>compile</phase>
             <goals>
               <goal>unpack-dependencies</goal>
             </goals>
             <configuration>
               <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <overWriteReleases>true</overWriteReleases>
             </configuration>
           </execution>
         </executions>

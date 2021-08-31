@@ -1,7 +1,7 @@
 package edu.school21.chat.models;
 
-import java.util.Calendar;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Message {
@@ -73,22 +73,19 @@ public class Message {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, author, room, text, dateTime);
     }
 
     @Override
     public String toString() {
-        String dateTimeStr = this.dateTime == null
-                ? null
-                : String.format("%d/%d/%d %d:%d",
-                dateTime.getDayOfMonth(), dateTime.getMonthValue(), dateTime.getYear(),
-                dateTime.getHour(), dateTime.getMinute());
-        return  "{\n" +
-                "id=" + id + ",\n" +
-                "author=" + author.toString().replaceAll("\n","") + ",\n" +
-                "room=" + room.toString().replaceAll("\n","") + ",\n" +
-                "text=" + (text == null ? null : ("\"" + text + '\"')) + ",\n" +
-                "dateTime=" + dateTimeStr + "\n" +
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        String dateTimeStr = (dateTime == null ? null : dateTime.format(formatter));
+        return  "{" +
+                "id=" + id + "," +
+                "author=" + author + "," +
+                "room=" + room + "," +
+                "text=" + (text == null ? null : ("\"" + text + '\"')) + "," +
+                "dateTime=" + dateTimeStr +
                 "}";
     }
 }

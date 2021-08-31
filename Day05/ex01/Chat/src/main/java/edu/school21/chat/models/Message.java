@@ -1,7 +1,7 @@
 package edu.school21.chat.models;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Message {
@@ -9,7 +9,15 @@ public class Message {
     private User author;
     private Chatroom room;
     private String text;
-    private Date dateTime;
+    private LocalDateTime dateTime;
+
+    public Message(Long id, User author, Chatroom room, String text, LocalDateTime dateTime) {
+        this.id = id;
+        this.author = author;
+        this.room = room;
+        this.text = text;
+        this.dateTime = dateTime;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -27,7 +35,7 @@ public class Message {
         this.text = text;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setDateTime(LocalDateTime timestamp) {
         this.dateTime = timestamp;
     }
 
@@ -47,7 +55,7 @@ public class Message {
         return text;
     }
 
-    public Date getTimestamp() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
 
@@ -65,22 +73,19 @@ public class Message {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, author, room, text, dateTime);
     }
 
     @Override
     public String toString() {
-        Calendar.Builder builder = new Calendar.Builder();
-        Calendar cal = builder.setInstant(dateTime).build();
-        String dateTimeStr = String.format("%d/%d/%d %d:%d",
-                cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR),
-                cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));
-        return  "{\n" +
-                "id=" + id + ",\n" +
-                "author=" + author.toString().replaceAll("\n","") + ",\n" +
-                "room=" + room.toString().replaceAll("\n","") + ",\n" +
-                "text=\"" + text + '\"' + ",\n" +
-                "dateTime=" + dateTimeStr + "\n" +
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        String dateTimeStr = (dateTime == null ? null : dateTime.format(formatter));
+        return  "{" +
+                "id=" + id + "," +
+                "author=" + author + "," +
+                "room=" + room + "," +
+                "text=" + (text == null ? null : ("\"" + text + '\"')) + "," +
+                "dateTime=" + dateTimeStr +
                 "}";
     }
 }

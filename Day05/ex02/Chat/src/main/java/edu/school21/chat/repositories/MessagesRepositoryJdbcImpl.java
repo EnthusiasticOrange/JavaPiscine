@@ -6,13 +6,14 @@ import edu.school21.chat.models.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class MessagesRepositoryJdbcImpl implements MessagesRepository {
     private DataSource dataSource;
-    public MessagesRepositoryJdbcImpl(DataSource source) {
-        dataSource = source;
+
+    public MessagesRepositoryJdbcImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -34,9 +35,11 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
             User user = new User();
             Chatroom room = new Chatroom();
             Message msg = new Message(id, user, room, null, null);
+            Timestamp time = result.getTimestamp("time");
+
 
             msg.setText(result.getString("text"));
-            msg.setTimestamp(result.getTimestamp("time").toLocalDateTime());
+            msg.setDateTime(time == null ? null : time.toLocalDateTime());
 
             user.setId(result.getLong("author_id"));
             user.setLogin(result.getString("user_login"));
@@ -66,11 +69,12 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
         try {
             Connection con = dataSource.getConnection();
             con.setSchema("mjuli_chat");
-            String queryStr = "INSERT INTO messages (author_id, room_id, text) VALUES (?, ?, ?) RETURNING id;";
+            String queryStr = "INSERT INTO messages (author_id, room_id, text, time) VALUES (?, ?, ?, ?) RETURNING id;";
             PreparedStatement query = con.prepareStatement(queryStr);
             query.setLong(1, author.getId());
             query.setLong(2, room.getId());
             query.setString(3, message.getText());
+            query.setTimestamp(4, Timestamp.valueOf(message.getDateTime()));
             ResultSet result = query.executeQuery();
             if(!result.next()) {
                 throw new NotSavedSubEntityException("Failed to save message");

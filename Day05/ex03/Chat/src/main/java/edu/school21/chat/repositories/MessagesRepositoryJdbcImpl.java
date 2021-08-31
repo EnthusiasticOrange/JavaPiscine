@@ -11,8 +11,9 @@ import java.util.Optional;
 
 public class MessagesRepositoryJdbcImpl implements MessagesRepository {
     private DataSource dataSource;
-    public MessagesRepositoryJdbcImpl(DataSource source) {
-        dataSource = source;
+
+    public MessagesRepositoryJdbcImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -102,7 +103,7 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
             query.setLong(6, message.getId());
             query.executeUpdate();
         } catch (SQLException e) {
-            System.err.printf("%s\n", e.getMessage());
+            throw new NotSavedSubEntityException("Failed to update message");
         }
     }
 }

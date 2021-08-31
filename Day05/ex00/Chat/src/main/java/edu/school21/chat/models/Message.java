@@ -1,6 +1,7 @@
 package edu.school21.chat.models;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Message {
@@ -8,7 +9,35 @@ public class Message {
     private User author;
     private Chatroom room;
     private String text;
-    private Date timestamp;
+    private LocalDateTime dateTime;
+
+    public Message(Long id, User author, Chatroom room, String text, LocalDateTime dateTime) {
+        this.id = id;
+        this.author = author;
+        this.room = room;
+        this.text = text;
+        this.dateTime = dateTime;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public void setRoom(Chatroom room) {
+        this.room = room;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setDateTime(LocalDateTime timestamp) {
+        this.dateTime = timestamp;
+    }
 
     public Long getId() {
         return id;
@@ -26,8 +55,8 @@ public class Message {
         return text;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     @Override
@@ -44,17 +73,19 @@ public class Message {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, author, room, text, dateTime);
     }
 
     @Override
     public String toString() {
-        return "Message : {" +
-                "id=" + id +
-                ", author=" + author.toString().replace('\n', ' ') +
-                ", room=" + room.toString().replace('\n', ' ') +
-                ", text=\"" + text + '\"' +
-                ", timestamp=" + timestamp +
-                '}';
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        String dateTimeStr = (dateTime == null ? null : dateTime.format(formatter));
+        return  "{" +
+                "id=" + id + "," +
+                "author=" + author + "," +
+                "room=" + room + "," +
+                "text=" + (text == null ? null : ("\"" + text + '\"')) + "," +
+                "dateTime=" + dateTimeStr +
+                "}";
     }
 }

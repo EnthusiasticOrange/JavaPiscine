@@ -1,4 +1,4 @@
-SET search_path TO day05;
+SET search_path TO mjuli_chat;
 
 SET TIME ZONE 'Europe/Moscow';
 

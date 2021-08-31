@@ -6,13 +6,14 @@ import edu.school21.chat.models.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class MessagesRepositoryJdbcImpl implements MessagesRepository {
     private DataSource dataSource;
-    public MessagesRepositoryJdbcImpl(DataSource source) {
-        dataSource = source;
+
+    public MessagesRepositoryJdbcImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -30,15 +31,15 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
             if (!result.next()) {
                 return Optional.empty();
             }
-            Message msg = new Message();
+
             User user = new User();
             Chatroom room = new Chatroom();
+            Message msg = new Message(id, user, room, null, null);
+            Timestamp time = result.getTimestamp("time");
 
-            msg.setId(result.getLong("id"));
-            msg.setAuthor(user);
-            msg.setRoom(room);
+
             msg.setText(result.getString("text"));
-            msg.setTimestamp(new Date(result.getTimestamp("time").getTime()));
+            msg.setDateTime(time == null ? null : time.toLocalDateTime());
 
             user.setId(result.getLong("author_id"));
             user.setLogin(result.getString("user_login"));

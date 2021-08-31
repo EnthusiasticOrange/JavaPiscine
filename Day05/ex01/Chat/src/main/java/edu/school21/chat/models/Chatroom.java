@@ -14,6 +14,13 @@ public class Chatroom {
     public Chatroom() {
     }
 
+    public Chatroom(Long id, String name, User creator, List<Message> messages) {
+        this.id = id;
+        this.name = name;
+        this.creator = creator;
+        this.messages = messages;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -61,17 +68,18 @@ public class Chatroom {
         return id.equals(chatroom.id);
     }
 
+
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, creator, messages);
     }
 
     @Override
     public String toString() {
-        return  "{\n" +
-                "id=" + id + ",\n" +
-                "name='" + name + '\'' + ",\n" +
-                "creator=" + (creator == null ? "null" : creator.toString().replace('\n', ' ')) + ",\n" +
+        return  "{" +
+                "id=" + id + "," +
+                "name='" + name + '\'' + "," +
+                "creator=" + (creator == null ? "null" : String.format("%s (%d)", creator.getLogin(), creator.getId())) + "," +
                 "messages=" + messages +
                 "}";
     }

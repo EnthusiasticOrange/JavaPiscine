@@ -1,6 +1,5 @@
 package edu.school21.chat.models;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,6 +9,17 @@ public class User {
     private String password;
     private List<Chatroom> createdRooms;
     private List<Chatroom> rooms;
+
+    public User() {
+    }
+
+    public User(Long id, String login, String password, List<Chatroom> createdRooms, List<Chatroom> rooms) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.createdRooms = createdRooms;
+        this.rooms = rooms;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -24,16 +34,10 @@ public class User {
     }
 
     public void addCreatedRoom(Chatroom room) {
-        if (this.createdRooms == null) {
-            this.createdRooms = new LinkedList<>();
-        }
         this.createdRooms.add(room);
     }
 
     public void addJoinedRoom(Chatroom room) {
-        if (this.rooms == null) {
-            this.rooms = new LinkedList<>();
-        }
         this.rooms.add(room);
     }
 
@@ -71,17 +75,34 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, login, password, createdRooms, rooms);
+    }
+
+    private static String createRoomListString(List<Chatroom> roomList) {
+        StringBuilder builder = new StringBuilder();
+        if (roomList != null) {
+            builder.append('[');
+            for (Chatroom c : roomList) {
+                builder.append(String.format("%s (%d), ", c.getName(), c.getId()));
+            }
+            if (!roomList.isEmpty()) {
+                builder.deleteCharAt(builder.length() - 1)
+                        .deleteCharAt(builder.length() - 1);
+            }
+            builder.append(']');
+            return builder.toString();
+        }
+        return null;
     }
 
     @Override
     public String toString() {
-        return  "{\n" +
-                "id=" + id + ",\n" +
-                "login=\"" + login + '\"' + ",\n" +
-                "password=\"" + password + '\"' + ",\n" +
-                "createdRooms=" + createdRooms + ",\n" +
-                "rooms=" + rooms +
+        return  "{" +
+                "id=" + id + "," +
+                "login=\"" + login + '\"' + "," +
+                "password=\"" + password + '\"' + "," +
+                "createdRooms=" + createRoomListString(createdRooms) + "," +
+                "rooms=" + createRoomListString(rooms) +
                 "}";
     }
 }
