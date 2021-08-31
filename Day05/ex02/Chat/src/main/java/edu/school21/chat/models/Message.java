@@ -68,8 +68,11 @@ public class Message {
             return false;
         }
         Message message = (Message) o;
-        return id.equals(message.id);
+        return Objects.equals(id, message.id) && Objects.equals(author, message.author)
+                && Objects.equals(room, message.room) && Objects.equals(text, message.text)
+                && Objects.equals(dateTime, message.dateTime);
     }
+
 
     @Override
     public int hashCode() {

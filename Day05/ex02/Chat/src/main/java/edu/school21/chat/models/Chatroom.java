@@ -65,9 +65,9 @@ public class Chatroom {
             return false;
         }
         Chatroom chatroom = (Chatroom) o;
-        return id.equals(chatroom.id);
+        return Objects.equals(id, chatroom.id) && Objects.equals(name, chatroom.name)
+                && Objects.equals(creator, chatroom.creator) && Objects.equals(messages, chatroom.messages);
     }
-
 
     @Override
     public int hashCode() {

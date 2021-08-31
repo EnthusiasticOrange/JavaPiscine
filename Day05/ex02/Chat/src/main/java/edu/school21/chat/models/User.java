@@ -70,7 +70,9 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return id.equals(user.id);
+        return Objects.equals(id, user.id) && Objects.equals(login, user.login)
+                && Objects.equals(password, user.password) && Objects.equals(createdRooms, user.createdRooms)
+                && Objects.equals(rooms, user.rooms);
     }
 
     @Override
