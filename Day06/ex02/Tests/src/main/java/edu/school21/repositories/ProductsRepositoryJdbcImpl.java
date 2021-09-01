@@ -27,9 +27,7 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository {
                 Product p = new Product(r.getLong(1), r.getString(2), r.getInt(3));
                 retList.add(p);
             }
-        } catch (SQLException e) {
-            System.err.printf("%s\n", e.getMessage());
-        }
+        } catch (SQLException e) {}
         return retList;
     }
 
@@ -46,9 +44,7 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository {
                     return Optional.of(p);
                 }
             }
-        } catch (SQLException e) {
-            System.err.printf("%s\n", e.getMessage());
-        }
+        } catch (SQLException e) {}
         return Optional.empty();
     }
 
@@ -62,9 +58,7 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository {
             query.setInt(2, product.getPrice());
             query.setLong(3, product.getId());
             query.executeUpdate();
-        } catch (SQLException e) {
-            System.err.printf("%s\n", e.getMessage());
-        }
+        } catch (SQLException e) {}
     }
 
     @Override
@@ -77,9 +71,7 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository {
             query.setString(2, product.getName());
             query.setInt(3, product.getPrice());
             query.executeUpdate();
-        } catch (SQLException e) {
-            System.err.printf("%s\n", e.getMessage());
-        }
+        } catch (SQLException e) {}
     }
 
     @Override
@@ -90,8 +82,6 @@ public class ProductsRepositoryJdbcImpl implements ProductsRepository {
              PreparedStatement query = con.prepareStatement(queryStr);) {
             query.setLong(1, id);
             query.executeUpdate();
-        } catch (SQLException e) {
-            System.err.printf("%s\n", e.getMessage());
-        }
+        } catch (SQLException e) {}
     }
 }

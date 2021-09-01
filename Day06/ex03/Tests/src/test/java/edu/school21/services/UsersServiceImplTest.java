@@ -1,6 +1,7 @@
 package edu.school21.services;
 
 import edu.school21.exceptions.AlreadyAuthenticatedException;
+import edu.school21.exceptions.EntityNotFoundException;
 import edu.school21.models.User;
 import edu.school21.repositories.UsersRepository;
 import org.junit.jupiter.api.Assertions;
@@ -28,10 +29,10 @@ public class UsersServiceImplTest {
         String login = "user";
         String pass = "password";
         Mockito.when(repository.findByLogin(login))
-                .thenThrow(RuntimeException.class);
+                .thenThrow(EntityNotFoundException.class);
 
         UsersServiceImpl service = new UsersServiceImpl(repository);
-        Assertions.assertThrows(RuntimeException.class, () -> service.authenticate(login, pass));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> service.authenticate(login, pass));
     }
 
     @Test
