@@ -24,8 +24,16 @@ public class User {
         return height;
     }
 
+    public String returnString() {
+        return "String";
+    }
+
     public void sayHelloTo(String name) {
         System.out.printf("Hello from '%s' to '%s'\n", firstName, name);
+    }
+
+    public long sum(long first, long second) {
+        return first + second;
     }
 
     @Override
