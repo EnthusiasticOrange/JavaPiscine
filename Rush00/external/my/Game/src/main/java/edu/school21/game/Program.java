@@ -54,8 +54,8 @@ public class Program {
         try {
             JCommander.newBuilder().addObject(program).build().parse(args);
         } catch (Exception e) {
-            System.out.println("Usage: java -cp ../../lib/jcommander-1.79.jar:../../lib/JCDP-4.0.2.jar:."
-                    + " edu.school21.game.Program --enemiesCount=<count of enemies> --wallsCount=<count of obstracles>"
+            System.out.println("Usage: Game.jar"
+                    + " --enemiesCount=<count of enemies> --wallsCount=<count of obstracles>"
                     + " --size=<size of map> --profile=<game mode (production/dev)>");
             System.exit(-1);
         }
