@@ -6,7 +6,7 @@
 
   <groupId>edu.school21.annotations.form</groupId>
   <artifactId>Forms</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
 
   <name>Forms</name>
 
@@ -20,7 +20,7 @@
     <dependency>
       <groupId>edu.school21.annotations.processor</groupId>
       <artifactId>Processor</artifactId>
-      <version>1.0.0</version>
+      <version>1.0</version>
     </dependency>
   </dependencies>
 
@@ -29,4 +29,21 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <annotationProcessors>
+            <annotationProcessor>
+              edu.school21.annotations.processor.HtmlProcessor
+            </annotationProcessor>
+          </annotationProcessors>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

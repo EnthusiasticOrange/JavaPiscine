@@ -9,6 +9,7 @@
   <version>1.0</version>
 
   <name>Processor</name>
+  <packaging>jar</packaging>
 
   <parent>
     <groupId>edu.school21.annotations</groupId>

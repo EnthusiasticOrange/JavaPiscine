@@ -73,11 +73,11 @@ public class Program {
 
             System.out.println("---------------------");
             System.out.println("Enter name of the method for call:");
-            final String methodName = s.nextLine().trim();
+            final String methodName = s.nextLine().trim().replaceAll("\\s+","");
 
             Optional<ClassFactory.MethodInfo> methodInfo =
                     info.methodList.stream()
-                    .filter(method -> method.name.equals(methodName))
+                    .filter(method -> method.name.replaceAll("\\s+","").equals(methodName))
                     .findFirst();
             if (!methodInfo.isPresent()) {
                 System.out.printf("Class '%s' does not have method '%s'\n", className, methodName);
