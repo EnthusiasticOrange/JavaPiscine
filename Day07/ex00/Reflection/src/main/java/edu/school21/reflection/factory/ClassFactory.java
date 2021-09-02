@@ -1,5 +1,8 @@
 package edu.school21.reflection.factory;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -32,6 +35,29 @@ public class ClassFactory {
     }
 
     private final Map<String, ClassInfo> classMap = new TreeMap<>();
+
+    public void loadClasses() {
+        String packageName = "edu.school21.reflection.classes";
+        InputStream stream = ClassLoader.getSystemClassLoader()
+                .getResourceAsStream(packageName.replaceAll("[.]", "/"));
+        if (stream == null) {
+            throw new RuntimeException("Failed to read classes");
+        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        reader.lines()
+                .filter(line -> line.endsWith(".class"))
+                .forEach(line -> addClass(packageName, line));
+    }
+
+    private void addClass(String packageName, String line) {
+        try {
+            String className = line.substring(0, line.lastIndexOf('.'));
+            Class<?> cl = Class.forName(packageName + "." + className);
+            add(className, cl);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load Class");
+        }
+    }
 
     public void add(String name, Class<?> cl) {
         ClassInfo info = new ClassInfo();

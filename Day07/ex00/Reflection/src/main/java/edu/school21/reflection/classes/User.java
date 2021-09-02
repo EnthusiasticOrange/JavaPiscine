@@ -1,4 +1,4 @@
-package edu.school21.reflection.classes.user;
+package edu.school21.reflection.classes;
 
 import java.util.StringJoiner;
 

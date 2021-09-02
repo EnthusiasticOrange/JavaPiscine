@@ -1,6 +1,4 @@
-package edu.school21.reflection.classes.car;
-
-import edu.school21.reflection.classes.user.User;
+package edu.school21.reflection.classes;
 
 import java.util.StringJoiner;
 

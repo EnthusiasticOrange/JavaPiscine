@@ -11,8 +11,7 @@ public class Program {
 
         ClassFactory factory = new ClassFactory();
         try {
-            factory.add("User", Class.forName("edu.school21.reflection.classes.user.User"));
-            factory.add("Car", Class.forName("edu.school21.reflection.classes.car.Car"));
+            factory.loadClasses();
 
             System.out.println("Classes:");
             String[] classArray = factory.getAvailableClasses();
@@ -102,8 +101,6 @@ public class Program {
                 System.out.println("Method returned: ");
                 System.out.println(ret);
             }
-        } catch (ClassNotFoundException e) {
-            System.out.println("Could not init ClassFactory");
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
