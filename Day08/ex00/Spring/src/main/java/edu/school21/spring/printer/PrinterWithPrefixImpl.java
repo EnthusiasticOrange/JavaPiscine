@@ -8,15 +8,18 @@ public class PrinterWithPrefixImpl implements Printer {
     private Renderer renderer;
     private String prefix;
 
-    public PrinterWithPrefixImpl(Renderer renderer) {
+    public PrinterWithPrefixImpl(Renderer renderer, String prefix) {
         this.renderer = renderer;
+        this.prefix = prefix;
+    }
+
+    public PrinterWithPrefixImpl(Renderer renderer) {
+        this(renderer, "");
     }
 
     @Override
     public void print(String text) {
-        if (prefix != null) {
-            renderer.sendToConsole(prefix);
-        }
+        renderer.sendToConsole(prefix);
         renderer.sendToConsole(text);
     }
 

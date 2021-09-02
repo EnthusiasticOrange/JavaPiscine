@@ -5,14 +5,22 @@
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="printerWithPrefix" class="edu.school21.spring.printer.PrinterWithPrefixImpl" init-method="">
+    <bean id="printerWithPrefix" class="edu.school21.spring.printer.PrinterWithPrefixImpl">
         <constructor-arg name="renderer" ref="rendererErrImpl"/>
-        <property name="prefix" value="Prefix "/>
+        <constructor-arg name="prefix" value="Prefix "/>
+<!--        <property name="prefix" value="Prefix "/>-->
+    </bean>
+    <bean id="printerWithDateTime" class="edu.school21.spring.printer.PrinterWithDateTimeImpl">
+        <constructor-arg name="renderer" ref="rendererStandardImpl"/>
     </bean>
 
     <bean id="rendererErrImpl" class="edu.school21.spring.renderer.RendererErrImpl">
         <constructor-arg name="processor" ref="preProcessorToUpperImpl"/>
     </bean>
+    <bean id="rendererStandardImpl" class="edu.school21.spring.renderer.RendererStandardImpl">
+        <constructor-arg name="processor" ref="preProcessorToLowerImpl"/>
+    </bean>
 
     <bean id="preProcessorToUpperImpl" class="edu.school21.spring.preprocessor.PreProcessorToUpperImpl"/>
+    <bean id="preProcessorToLowerImpl" class="edu.school21.spring.preprocessor.PreProcessorToLowerImpl"/>
 </beans>
