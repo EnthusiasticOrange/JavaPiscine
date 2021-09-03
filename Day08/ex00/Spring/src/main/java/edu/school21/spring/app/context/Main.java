@@ -1,6 +1,6 @@
 package edu.school21.spring.app.context;
 
-import edu.school21.spring.printer.Printer;
+import edu.school21.spring.printers.Printer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

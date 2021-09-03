@@ -5,22 +5,22 @@
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="printerWithPrefix" class="edu.school21.spring.printer.PrinterWithPrefixImpl">
+    <bean id="printerWithPrefix" class="edu.school21.spring.printers.PrinterWithPrefixImpl">
         <constructor-arg name="renderer" ref="rendererErrImpl"/>
         <constructor-arg name="prefix" value="Prefix "/>
 <!--        <property name="prefix" value="Prefix "/>-->
     </bean>
-    <bean id="printerWithDateTime" class="edu.school21.spring.printer.PrinterWithDateTimeImpl">
+    <bean id="printerWithDateTime" class="edu.school21.spring.printers.PrinterWithDateTimeImpl">
         <constructor-arg name="renderer" ref="rendererStandardImpl"/>
     </bean>
 
-    <bean id="rendererErrImpl" class="edu.school21.spring.renderer.RendererErrImpl">
+    <bean id="rendererErrImpl" class="edu.school21.spring.renderers.RendererErrImpl">
         <constructor-arg name="processor" ref="preProcessorToUpperImpl"/>
     </bean>
-    <bean id="rendererStandardImpl" class="edu.school21.spring.renderer.RendererStandardImpl">
+    <bean id="rendererStandardImpl" class="edu.school21.spring.renderers.RendererStandardImpl">
         <constructor-arg name="processor" ref="preProcessorToLowerImpl"/>
     </bean>
 
-    <bean id="preProcessorToUpperImpl" class="edu.school21.spring.preprocessor.PreProcessorToUpperImpl"/>
-    <bean id="preProcessorToLowerImpl" class="edu.school21.spring.preprocessor.PreProcessorToLowerImpl"/>
+    <bean id="preProcessorToUpperImpl" class="edu.school21.spring.preprocessors.PreProcessorToUpperImpl"/>
+    <bean id="preProcessorToLowerImpl" class="edu.school21.spring.preprocessors.PreProcessorToLowerImpl"/>
 </beans>

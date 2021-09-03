@@ -7,11 +7,11 @@
 
     <context:property-placeholder location="classpath:db.properties"/>
 
-    <bean id="usersRepositoryJdbc" class="edu.school21.spring.service.repositories.UsersRepositoryJdbcImpl">
+    <bean id="usersRepositoryJdbc" class="school21.spring.service.repositories.UsersRepositoryJdbcImpl">
         <constructor-arg name="dataSource" ref="hikariDataSource"/>
     </bean>
 
-    <bean id="usersRepositoryJdbcTemplate" class="edu.school21.spring.service.repositories.UsersRepositoryJdbcTemplateImpl">
+    <bean id="usersRepositoryJdbcTemplate" class="school21.spring.service.repositories.UsersRepositoryJdbcTemplateImpl">
         <constructor-arg name="dataSource" ref="driverManagerDataSource"/>
     </bean>
 
@@ -26,6 +26,6 @@
         <property name="jdbcUrl" value="${db.url}"/>
         <property name="username" value="${db.user}"/>
         <property name="password" value="${db.password}"/>
-<!--        <property name="driverClassName" value="${db.driver.name}"/>-->
+        <property name="driverClassName" value="${db.driver.name}"/>
     </bean>
 </beans>
