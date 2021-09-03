@@ -1,6 +1,6 @@
-package edu.school21.service.repositories;
+package edu.school21.spring.service.repositories;
 
-import edu.school21.service.models.User;
+import edu.school21.spring.service.models.User;
 
 import java.util.Optional;
 

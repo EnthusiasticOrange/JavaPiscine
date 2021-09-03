@@ -1,4 +1,4 @@
-package edu.school21.service.models;
+package edu.school21.spring.service.models;
 
 import java.util.Objects;
 

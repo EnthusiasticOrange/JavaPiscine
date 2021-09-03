@@ -1,22 +1,27 @@
-package edu.school21.service.repositories;
+package edu.school21.spring.service.repositories;
 
 import javax.sql.DataSource;
 
-import edu.school21.service.models.User;
+import edu.school21.spring.service.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Component("usersRepositoryJdbcTemplate")
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public UsersRepositoryJdbcTemplateImpl(DataSource dataSource) {
+    @Autowired
+    public UsersRepositoryJdbcTemplateImpl(@Qualifier("driverManagerDataSource") DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
