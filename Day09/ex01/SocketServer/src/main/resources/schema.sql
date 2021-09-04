@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS users (
+    id BIGSERIAL PRIMARY KEY UNIQUE,
+    username VARCHAR(80) UNIQUE,
+    password VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS messages (
+    id BIGSERIAL PRIMARY KEY UNIQUE,
+    owner varchar(80),
+    text TEXT,
+    time TIMESTAMP DEFAULT LOCALTIMESTAMP(0)
+);

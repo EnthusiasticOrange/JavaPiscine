@@ -40,31 +40,31 @@ public class Server {
                 InputStreamReader stream = new InputStreamReader(client.getInputStream());
                 BufferedReader in = new BufferedReader(stream);
                 PrintWriter out = new PrintWriter(client.getOutputStream(), true);) {
+                out.println("Hello from Server!");
                 String command = in.readLine();
                 if (command == null) {
                     break;
                 }
                 if (!command.equals("signUp")) {
                     out.println("ERROR: Unknown command");
-                    break;
+                    continue;
                 }
 
                 out.println("Enter username:");
                 String username = in.readLine();
                 if (username == null) {
-                    break;
+                    continue;
                 }
                 out.println("Enter password:");
                 String password = in.readLine();
                 if (password == null) {
-                    break;
+                    continue;
                 }
                 if (service.signUp(username, password)) {
                     out.println("Successful!");
                 } else {
                     out.println("ERROR: Failed to Sign Up");
                 }
-                break;
             } catch (IOException e) {
                 return;
             }
